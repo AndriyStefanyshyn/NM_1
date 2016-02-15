@@ -14,8 +14,49 @@
         android:layout_height="wrap_content"
         android:text="Get graph"
         android:id="@+id/btnGetGraph"
-        android:layout_alignParentBottom="true"
+        android:onClick="onClick"
+        android:layout_alignBaseline="@+id/etFromY"
+        android:layout_alignBottom="@+id/etFromY"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="onClick"/>
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:id="@+id/etFromX"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:id="@+id/etToX"
+        android:layout_below="@+id/etFromX"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:id="@+id/etFromY"
+        android:layout_below="@+id/etToX"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:id="@+id/etToY"
+        android:layout_below="@+id/etFromY"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
