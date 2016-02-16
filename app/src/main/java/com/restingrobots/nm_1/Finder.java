@@ -87,18 +87,19 @@ public class Finder {
     public static double iter(double From, double To, double Eps) {
         if(getY(To)*getY(From) < 0) {
             double x;
+            double x0;
             if(Math.abs(To - From) < Eps) {
                 x = (To + From)/2f;
                 return x;
             }
-            x = getFi(From);
+            x0 = (To + From)/2f;
             while(true) {
-                x = getFi(x);
-                if(Math.abs(x - From) < Eps) {
+                x = getFi(x0);
+                if(Math.abs(x - x0) < Eps) {
                     return x;
                 }
                 else {
-                    From = x;
+                    x0 = x;
                 }
             }
         }
@@ -120,6 +121,6 @@ public class Finder {
     }
 
     public static double getFi(double x) {
-        return (-1/39*x*x*x + 2/39*x*x + x - 1/13);
+        return ((-0.025)*x*x*x + (0.05)*x*x + x - (0.075));
     }
 }
