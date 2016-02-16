@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Лабораторна №1</string>
+    <string name="dialog_title">Методи</string>
 </resources>

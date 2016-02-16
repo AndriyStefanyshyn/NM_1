@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Поділу</item>
+        <item>Хорд</item>
+        <item>Дотичних</item>
+        <item>Ітерацій</item>
+    </string-array>
+</resources>

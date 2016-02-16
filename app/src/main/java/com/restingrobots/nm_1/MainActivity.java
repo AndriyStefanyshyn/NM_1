@@ -1,29 +1,51 @@
 package com.restingrobots.nm_1;
 
-import android.app.Application;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener, ChoseDialog.ChoseDialogListener {
 
-    EditText etFromX;
-    EditText etToX;
-    EditText etFromY;
-    EditText etToY;
+    private EditText etFromX;
+    private EditText etToX;
+    private EditText etFromY;
+    private EditText etToY;
+
+    private EditText etA;
+    private EditText etB;
+    private EditText etEps;
+
+    TextView v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         etFromX = (EditText) findViewById(R.id.etFromX);
         etToX = (EditText) findViewById(R.id.etToX);
         etFromY = (EditText) findViewById(R.id.etFromY);
         etToY = (EditText) findViewById(R.id.etToY);
+
+        etA = (EditText) findViewById(R.id.etA);
+        etB = (EditText) findViewById(R.id.etB);
+        etEps = (EditText) findViewById(R.id.etEps);
+
+        v = (TextView) findViewById(R.id.textView);
     }
+
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ChoseDialog editNameDialog = new ChoseDialog();
+        editNameDialog.show(fm, "fragment_chose");
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -52,6 +74,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             }
+            case R.id.btnGetResult: {
+                if(etA.getText().toString().isEmpty() || etB.getText().toString().isEmpty() ||
+                        etEps.getText().toString().isEmpty()) {
+                    Toast.makeText(this, "Заповніть всі поля", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    showEditDialog();
+                }
+                break;
+            }
         }
+    }
+
+    @Override
+    public void onChose(int id) {
+        double result = -1;
+        double A = Double.parseDouble(etA.getText().toString());
+        double B = Double.parseDouble(etB.getText().toString());
+        double Eps = Double.parseDouble(etEps.getText().toString());
+        switch (id) {
+            case 0: {
+                result = Finder.bisection(A, B, Eps);
+                break;
+            }
+            case 1: {
+                result = Finder.chord(A, B, Eps);
+                break;
+            }
+            case 2: {
+                result = Finder.neuton(A, B, Eps);
+                break;
+            }
+            case 3: {
+                result = Finder.iter(A, B, Eps);
+                break;
+            }
+        }
+        v.setText(String.valueOf(result));
     }
 }

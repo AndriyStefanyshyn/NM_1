@@ -75,6 +75,9 @@ public class GraphActivity extends AppCompatActivity {
 
         mRenderer.setXTitle("X axis");
         mRenderer.setYTitle("Y axis");
+        mRenderer.setAxisTitleTextSize((float)(amount/15));
+        //mRenderer.setChartTitleTextSize(20);
+        mRenderer.setLabelsTextSize((float)(amount/15));
         mRenderer.setMarginsColor(Color.WHITE);
         mRenderer.setAxesColor(Color.BLACK);
         mRenderer.setLabelsColor(Color.BLACK);
