@@ -1,14 +1,20 @@
 package com.restingrobots.nm_1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener, ChoseDialog.ChoseDialogListener {
 
@@ -21,7 +27,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private EditText etB;
     private EditText etEps;
 
-    TextView v;
+    TextView[] v;
+    public static final String PREFS_NAME = "Solutions";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         etB = (EditText) findViewById(R.id.etB);
         etEps = (EditText) findViewById(R.id.etEps);
 
-        v = (TextView) findViewById(R.id.textView);
+        v = new TextView[4];
+        v[0] = (TextView) findViewById(R.id.textView);
+        v[1] = (TextView) findViewById(R.id.textView2);
+        v[2] = (TextView) findViewById(R.id.textView3);
+        v[3] = (TextView) findViewById(R.id.textView4);
     }
 
     private void showEditDialog() {
@@ -89,7 +100,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     @Override
     public void onChose(int id) {
-        double result = -1;
+        String result = "Помилка";
         double A = Double.parseDouble(etA.getText().toString());
         double B = Double.parseDouble(etB.getText().toString());
         double Eps = Double.parseDouble(etEps.getText().toString());
@@ -111,6 +122,12 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 break;
             }
         }
-        v.setText(String.valueOf(result));
+        v[id].setText((result));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

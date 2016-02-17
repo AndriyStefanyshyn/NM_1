@@ -1,5 +1,8 @@
 package com.restingrobots.nm_1;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Created by Andriy on 12.02.2016.
  */
@@ -7,13 +10,14 @@ public class Finder {
 
     private Finder(){}
 
-    public static double bisection(double From, double To, double Eps) {
+    public static String bisection(double From, double To, double Eps) {
         if(getY(To)*getY(From) < 0) {
             double x;
+            int i = 0;
             while(true) {
                 x = (To + From)/2f;
                 if(Math.abs(To - From) < Eps || getY(x) == 0) {
-                    return x;
+                    return ("Поділу: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
                 }
                 else {
                     if(getY(From)*getY(x) < 0) {
@@ -23,19 +27,21 @@ public class Finder {
                         From = x;
                     }
                 }
+                i++;
             }
         }
         else {
-            return -1;
+            return "Поділу: Помилка";
         }
     }
 
-    public static double chord(double From, double To, double Eps) {
+    public static String chord(double From, double To, double Eps) {
         if(getY(To)*getY(From) < 0) {
             double x;
+            int i = 0;
             if(Math.abs(To - From) < Eps) {
                 x = (To + From)/2f;
-                return x;
+                return ("Хорд: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
             }
             if(!(getYDD(To)*getY(To) > 0)) {
                 double temp = From;
@@ -45,24 +51,26 @@ public class Finder {
             while(true) {
                 x = From - (getY(From)*(To-From)/(getY(To)-getY(From)));
                 if(Math.abs(x - From) < Eps) {
-                    return x;
+                    return ("Хорд: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
                 }
                 else {
                     From = x;
                 }
+                i++;
             }
         }
         else {
-            return -1;
+            return "Хорд: Помилка";
         }
     }
 
-    public static double neuton(double From, double To, double Eps) {
+    public static String neuton(double From, double To, double Eps) {
         if(getY(To)*getY(From) < 0) {
             double x;
+            int i = 0;
             if(Math.abs(To - From) < Eps) {
                 x = (To + From)/2f;
-                return x;
+                return ("Ньютона: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
             }
             if(!(getYDD(To)*getY(To) > 0)) {
                 double temp = From;
@@ -72,39 +80,42 @@ public class Finder {
             while(true) {
                 x = To - getY(To)/getYD(To);
                 if(Math.abs(To - x) < Eps) {
-                    return x;
+                    return ("Ньютона: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
                 }
                 else {
                     To = x;
                 }
+                i++;
             }
         }
         else {
-            return -1;
+            return "Ньютона: Помилка";
         }
     }
 
-    public static double iter(double From, double To, double Eps) {
+    public static String iter(double From, double To, double Eps) {
         if(getY(To)*getY(From) < 0) {
             double x;
             double x0;
+            int i = 0;
             if(Math.abs(To - From) < Eps) {
                 x = (To + From)/2f;
-                return x;
+                return ("Ітерацій: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
             }
             x0 = (To + From)/2f;
             while(true) {
                 x = getFi(x0);
                 if(Math.abs(x - x0) < Eps) {
-                    return x;
+                    return ("Ітерацій: " + new BigDecimal(x).setScale(3, RoundingMode.HALF_UP).doubleValue() + "; " + i);
                 }
                 else {
                     x0 = x;
                 }
+                i++;
             }
         }
         else {
-            return -1;
+            return "Ітерацій: Помилка";
         }
     }
 
