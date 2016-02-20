@@ -83,6 +83,8 @@ public class GraphActivity extends AppCompatActivity {
         mRenderer.setAntialiasing(true);
         mRenderer.setZoomEnabled(true, true);
         mRenderer.setShowGrid(true);
+        mRenderer.setYLabelsPadding(5);
+        mRenderer.setMargins(new int[]{40, (int)(amount / 6), 15, 20});
         mRenderer.setPanEnabled(true, true);
         mRenderer.setXAxisMin(fromX);
         mRenderer.setXAxisMax(toX);
