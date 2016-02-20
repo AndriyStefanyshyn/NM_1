@@ -26,26 +26,20 @@ import org.achartengine.renderer.XYSeriesRenderer;
  *     Others do not know AChartEngine can draw. 
  */
 public class GraphActivity extends AppCompatActivity {
-    private LinearLayout mLinear;
-    private GraphicalView mChartView;
-    private double fromX;
-    private double toX;
-    private double fromY;
-    private double toY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        mLinear = (LinearLayout) findViewById(R.id.chart);
+        LinearLayout mLinear = (LinearLayout) findViewById(R.id.chart);
         mLinear.setBackgroundColor(Color.WHITE);
 
         Bundle extras = getIntent().getExtras();
-        fromX = extras.getInt("fromX", 0);
-        toX = extras.getInt("toX", 1);
-        fromY = extras.getInt("fromY", 0);
-        toY = extras.getInt("toY", 1);
+        double fromX = extras.getInt("fromX", 0);
+        double toX = extras.getInt("toX", 1);
+        double fromY = extras.getInt("fromY", 0);
+        double toY = extras.getInt("toY", 1);
 
         double amount;
         Display display = getWindowManager().getDefaultDisplay();
@@ -73,11 +67,12 @@ public class GraphActivity extends AppCompatActivity {
         dataset.addSeries(series);
         mRenderer.addSeriesRenderer(renderer);
 
+        renderer.setColor(Color.rgb(0, 50, 0));
+
         mRenderer.setXTitle("X axis");
         mRenderer.setYTitle("Y axis");
-        mRenderer.setAxisTitleTextSize((float)(amount/15));
-        //mRenderer.setChartTitleTextSize(20);
-        mRenderer.setLabelsTextSize((float)(amount/15));
+        mRenderer.setAxisTitleTextSize((float) (amount / 15));
+        mRenderer.setLabelsTextSize((float) (amount / 15));
         mRenderer.setMarginsColor(Color.WHITE);
         mRenderer.setAxesColor(Color.BLACK);
         mRenderer.setLabelsColor(Color.BLACK);
@@ -86,15 +81,15 @@ public class GraphActivity extends AppCompatActivity {
         mRenderer.setYLabelsAlign(Align.RIGHT);
         mRenderer.setShowLegend(false);
         mRenderer.setAntialiasing(true);
-        mRenderer.setZoomEnabled(false, false);
+        mRenderer.setZoomEnabled(true, true);
         mRenderer.setShowGrid(true);
-        mRenderer.setPanEnabled(false, false);
+        mRenderer.setPanEnabled(true, true);
         mRenderer.setXAxisMin(fromX);
         mRenderer.setXAxisMax(toX);
         mRenderer.setYAxisMin(fromY);
         mRenderer.setYAxisMax(toY);
 
-        mChartView = ChartFactory.getLineChartView(getApplicationContext(), dataset, mRenderer);
+        GraphicalView mChartView = ChartFactory.getLineChartView(getApplicationContext(), dataset, mRenderer);
         mLinear.addView(mChartView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 }
